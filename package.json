@@ -8,7 +8,7 @@
     "dist"
   ],
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/kiliancs/react-use-abortable-effect",
+  "repository": "https://github.com/kiliancs/react-hook-abortable-effect",
   "author": "Kilian Cirera Sant <webmaster@bahaidream.com> (http://kiliancirera.cat)",
   "license": "MIT",
   "scripts": {
