@@ -1,0 +1,36 @@
+{
+  "name": "react-use-abortable-effect",
+  "version": "1.0.0",
+  "description": "React hook to work with abortable side-effects in a safer way.",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/kiliancs/react-use-abortable-effect",
+  "author": "Kilian Cirera Sant <webmaster@bahaidream.com> (http://kiliancirera.cat)",
+  "license": "MIT",
+  "scripts": {
+    "build": "rm -rf ./dist && rollup -c",
+    "watch": "rollup -cw",
+    "test": "jest",
+    "format": "prettier --write **/*.{js,ts,json}"
+  },
+  "devDependencies": {
+    "@types/jest": "^23.3.12",
+    "@types/react": "^16.7.18",
+    "jest": "^23.6.0",
+    "jest-dom": "^3.0.0",
+    "prettier": "1.16.0",
+    "react-dom": "^16.8.0-alpha.0",
+    "react-testing-library": "^5.4.4",
+    "rollup": "^1.0.2",
+    "rollup-plugin-typescript2": "^0.18.1",
+    "ts-jest": "^23.10.5",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "react": "^16.8.0-alpha.0"
+  }
+}
