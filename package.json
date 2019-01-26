@@ -1,6 +1,6 @@
 {
   "name": "react-use-abortable-effect",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React hook to work with abortable side-effects in a safer way.",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
