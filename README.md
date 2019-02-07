@@ -12,7 +12,7 @@ the standard `AbortController`. This means effects used with
 `useAbortableEffect` can be used anywhere: in a redux store, outside of the
 React lifecycle, etc, without any dependency.
 
-More importantly, without `useEffect` you'd likely need some way for your
+More importantly, with just `useEffect` you'd likely need some way for your
 effect error handler to check the mount status of your component in order to
 prevent setting state or other unintended work when the abort occurs in the
 context of unmounting the component, which is a bad practice.
