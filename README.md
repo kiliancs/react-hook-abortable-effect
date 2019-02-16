@@ -41,7 +41,7 @@ const assertNever = (unexpected: never): never => {
 
 const LargeVideoDownloader: FunctionComponent<{}> = () => {
   const downloadEffect = useAbortableEffect(signal =>
-    fetch("some_url", { signal })
+    fetch("some_url", { signal }), []
   );
   const [downloadStatus, setDownloadStatus] = useState<DownloadStatus>({
     status: "Initial"
