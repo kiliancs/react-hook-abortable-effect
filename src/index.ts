@@ -2,7 +2,9 @@ import { useRef, useEffect } from 'react';
 
 export type Effect<P> = (signal: AbortSignal) => Promise<P>;
 
-export const useVariableAbortableEffect = (): VariableAbortableEffect => {
+export const useVariableAbortableEffect = (
+  inputs?: unknown[]
+): VariableAbortableEffect => {
   const abortControllerRef = useRef<AbortController | null>(null);
   const isUnmountingRef = useRef<boolean>(false);
 
@@ -13,7 +15,7 @@ export const useVariableAbortableEffect = (): VariableAbortableEffect => {
       isUnmountingRef.current = true;
       current.abort();
     },
-    []
+    inputs
   );
 
   const start = <P>(effect: Effect<P>): Promise<P> => {
@@ -60,14 +62,68 @@ interface AbortableEffect<P> {
   abort: () => void;
 }
 
+/**
+ * Allows starting arbitrary effects that depend on user input that doesn't
+ * need to be stored in the props or the state. A previously started event will
+ * be aborted when a new one starts, which can be done manually but will also
+ * happen on evey render. The effect will also be aborted when the component
+ * unmounts.
+ */
 export function useAbortableEffect(): VariableAbortableEffect;
+/**
+ * Allows starting arbitrary effects that depend on user input that doesn't
+ * need to be stored in the props or the state. A previously started event will
+ * be aborted when a new one starts, which can be done manually but will also
+ * happen on every render where the `input` members have changed. The effect
+ * will also be aborted when the component unmounts.
+ */
+export function useAbortableEffect(input: unknown[]): VariableAbortableEffect;
+/**
+ * Allows starting arbitrary effects that depend on user input that doesn't
+ * need to be stored in the props or the state. A previously started event will
+ * be aborted when a new one starts, which can be done manually but will also
+ * happen when the component mounts and unmounts.
+ */
+export function useAbortableEffect(input: []): VariableAbortableEffect;
+/**
+ * Allows starting a predefined effect. A previously started event will be
+ * aborted when a new one starts, which can be done manually but will also
+ * happen on every render. The effect will also be aborted when the component
+ * unmounts.
+ */
 export function useAbortableEffect<P>(callback: Effect<P>): AbortableEffect<P>;
+/**
+ * Allows starting a predefined effect. A previously started event will be
+ * aborted when a new one starts, which can be done manually but will also
+ * happen on every render where the `input` members have changed. The effect
+ * will also be aborted when the component unmounts.
+ */
 export function useAbortableEffect<P>(
-  callback?: Effect<P>
+  callback: Effect<P>,
+  input: unknown[]
+): AbortableEffect<P>;
+/**
+ * Allows starting a predefined effect. A previously started event will be
+ * aborted when a new one starts, which can be done manually but will also
+ * happen on every render. The effect will also be aborted when the component
+ * unmounts.
+ */
+export function useAbortableEffect<P>(
+  callback: Effect<P>,
+  input: []
+): AbortableEffect<P>;
+export function useAbortableEffect<P>(
+  ...args: [] | [unknown[]] | [Effect<P>] | [Effect<P>, unknown[]]
 ): AbortableEffect<P> | VariableAbortableEffect {
-  const effect = useVariableAbortableEffect();
-  if (callback === undefined) return effect;
-  const start = () => effect.start(callback);
+  if (args.length === 0) {
+    return useVariableAbortableEffect();
+  }
+  if (args.length === 1 && Array.isArray(args[0])) {
+    return useVariableAbortableEffect(args[0]);
+  }
+  const [callback, input] = args;
+  const effect = useVariableAbortableEffect(input);
+  const start = () => effect.start(callback as Effect<P>);
   return { start, abort: effect.abort };
 }
 
