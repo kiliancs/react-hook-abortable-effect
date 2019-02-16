@@ -1,5 +1,7 @@
 # useAbortableEffect
 
+[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/kiliancs/react-hook-abortable-effect/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/react-use-abortable-effect.svg?style=flat)](https://www.npmjs.com/package/react-use-abortable-effect)
+
 React hook to work with abortable effects in a safe way.
 
 An effect started with `useAbortableEffect` can be aborted at any time and will
